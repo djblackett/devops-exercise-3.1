@@ -3,6 +3,8 @@ version: "3.8"
 services:
   server:
     image: djblackett/devops-with-docker-3-ex:latest
+    ports:
+      - "8080:8080"
   watchtower:
     image: containrrr/watchtower
     environment:
