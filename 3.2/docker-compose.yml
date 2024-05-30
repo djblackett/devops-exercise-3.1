@@ -1,0 +1,5 @@
+services:
+  app:
+    image: devopsdockeruh/coursepage
+    ports:
+      - "80:80"

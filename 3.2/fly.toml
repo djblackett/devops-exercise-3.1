@@ -1,0 +1,21 @@
+# fly.toml app configuration file generated for devops-course-page on 2024-05-30T11:27:07-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'devops-course-page'
+primary_region = 'ewr'
+
+[build]
+  image = "devopsdockeruh/coursepage"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'

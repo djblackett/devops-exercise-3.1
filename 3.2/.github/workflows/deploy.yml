@@ -1,0 +1,28 @@
+name: Release DevOps with Docker 3.2 # Name of the workflow
+
+# On a push to the branch named master
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pipeline:
+    name: Publish app to cloud
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout to the repository
+      - uses: workflows/checkout@v4
+
+  deployment:
+    name: Deploy app
+    needs: [ pipeline ]
+    if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '# skip') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
