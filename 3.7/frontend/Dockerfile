@@ -6,7 +6,7 @@ COPY . .
 ENV REACT_APP_BACKEND_URL=http://localhost:8080
 
 RUN npm install && \
-    adduser user1 && \
+    adduser -D -g '' user1 && \
     chown -R user1:user1 /usr/src/app
 
 USER user1
